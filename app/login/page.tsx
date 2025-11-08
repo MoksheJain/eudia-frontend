@@ -29,6 +29,7 @@ export default function LoginForm() {
       if (response.ok) {
         setSuccess(true);
         console.log("Login successful:", data);
+        localStorage.setItem("userEmail", email);
         router.push("/dashboard");
         // Handle successful login (e.g., redirect, store token)
       } else {

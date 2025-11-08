@@ -202,7 +202,7 @@ export default function LegalLandingPage() {
             not harder.
           </p>
           <a
-            href="#"
+            href="/dashboard"
             className="inline-block py-4 px-10 text-xl text-blue-600 bg-white rounded-xl hover:bg-gray-100 transition-colors font-bold shadow-lg shadow-black/30"
           >
             Get Started Free

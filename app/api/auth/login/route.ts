@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { connectToMongo } from "@/lib/mongo";
 import { User } from "@/models/User";
+import jwt from "jsonwebtoken";
+const JWT_SECRET = "121212";
+const JWT_EXPIRY = "7d";
 
 export async function POST(req: Request) {
     try {
@@ -24,14 +27,6 @@ export async function POST(req: Request) {
             );
         }
 
-        // Optional: check if OTP is cleared (user verified)
-        // if (user.otp) {
-        //   return NextResponse.json(
-        //     { success: false, message: "Please verify your email first." },
-        //     { status: 403 }
-        //   );
-        // }
-
         const passwordMatch = await bcrypt.compare(password, user.passwordHash);
         if (!passwordMatch) {
             return NextResponse.json(
@@ -42,7 +37,6 @@ export async function POST(req: Request) {
 
         // Login successful → return user info (without password)
         const { passwordHash, otp, otpExpiresAt, ...userData } = user.toObject();
-
         return NextResponse.json({
             success: true,
             message: "Login successful.",
